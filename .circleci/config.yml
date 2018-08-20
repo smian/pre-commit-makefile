@@ -1,0 +1,15 @@
+---
+version: 2
+jobs:
+  build:
+    docker:
+    - image: perl
+
+    steps:
+    - checkout
+
+    - run:
+        name: Bootstrap the local environment
+        command: |
+         cd test
+         ./test.sh
