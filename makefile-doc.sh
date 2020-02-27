@@ -31,11 +31,11 @@ for path_uniq in $(echo "${paths[*]}" | tr ' ' '\n' | sort -u); do
     continue
   fi
 
-  START_LINE="\`\`\`\n\$ make help \n"
+  START_LINE="\`\`\`\n\$ make help\n"
   END_LINE="\n\`\`\`"
 
   # Remove color codes and add make help output to temp file
-   echo -e "$START_LINE$(make help | sed "s,$(printf '\033')\\[[0-9;]*[a-zA-Z],,g") $END_LINE" > "$tmp_file"
+   echo -e "$START_LINE$(make help | sed "s,$(printf '\033')\\[[0-9;]*[a-zA-Z],,g")$END_LINE" > "$tmp_file"
 
   # Replace content between markers with the placeholder - https://stackoverflow.com/questions/1212799/how-do-i-extract-lines-between-two-line-delimiters-in-perl#1212834
   perl -i -ne 'if (/START makefile-doc/../END makefile-doc/) { print $_ if /START makefile-doc/; print "I_WANT_TO_BE_REPLACED\n$_" if /END makefile-doc/;} else { print $_ }' "$text_file"
